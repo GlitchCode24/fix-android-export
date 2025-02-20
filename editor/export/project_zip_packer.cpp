@@ -50,6 +50,10 @@ String ProjectZIPPacker::get_project_zip_safe_name() {
 }
 
 void ProjectZIPPacker::pack_project_zip(const String &p_path) {
+	String exported_path = "res://.godot/exported";
+	if (DirAccess::dir_exists_absolute(exported_path);) {
+		DirAccess::remove_absolute(exported_path);
+	}
 	Ref<FileAccess> io_fa;
 	zlib_filefunc_def io = zipio_create_io(&io_fa);
 

@@ -31,6 +31,7 @@
 #include "project_export.h"
 
 #include "core/config/project_settings.h"
+#include "core/io/dir_access.h"
 #include "core/version.h"
 #include "editor/editor_file_system.h"
 #include "editor/editor_node.h"
@@ -115,6 +116,10 @@ void ProjectExportDialog::_notification(int p_what) {
 }
 
 void ProjectExportDialog::popup_export() {
+	String path = "res://.godot/exported";
+	if (DirAccess::dir_exists_absolute(path);) {
+		DirAccess::remove_absolute(path);
+	}
 	add_preset->get_popup()->clear();
 	for (int i = 0; i < EditorExport::get_singleton()->get_export_platform_count(); i++) {
 		Ref<EditorExportPlatform> plat = EditorExport::get_singleton()->get_export_platform(i);
@@ -1296,6 +1301,10 @@ void ProjectExportDialog::_export_project() {
 }
 
 void ProjectExportDialog::_export_project_to_path(const String &p_path) {
+	String path = "res://.godot/exported";
+	if (DirAccess::dir_exists_absolute(path);) {
+		DirAccess::remove_absolute(path);
+	}
 	// Save this name for use in future exports (but drop the file extension)
 	default_filename = p_path.get_file().get_basename();
 	EditorSettings::get_singleton()->set_project_metadata("export_options", "default_filename", default_filename);
